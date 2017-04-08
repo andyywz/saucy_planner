@@ -1,7 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+- Admin users can create events
+- People can attend events
+- People can read event details
+- Admin users can edit event details
+- People can see attendee list
 
 Things you may want to cover:
 
