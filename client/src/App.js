@@ -13,31 +13,43 @@ class App extends Component {
     });
   };
 
-  // handleCreateEvent = e => {
-  //   const data = e.target.
+  handleCreateEvent = e => {
+    e.preventDefault();
+    const params = {
+      userId: '3',
+      name: 'Something',
+      date: '01/01/2020',
+      description: 'Nothing spectacular here'
+    };
 
-  //   Client.createEvent(data => {
-  //     this.setState({ events });
-  //   });
-  // }
+    Client.createEvent(params, (data) => {
+      console.log(`Got this back ${data}`);
+      this.handleEvents();
+    });
+  }
 
   render() {
     const { events } = this.state
     const eventRows = events.map((event, idx) => (
-      <li key={idx}>
+      <tr key={idx}>
         <td>{event.name}</td>
         <td>{event.date}</td>
-      </li>
+      </tr>
     ));
 
     return (
       <div className="App">
-        <div className="App-header">
-          <button onClick={this.handleEvents}>Click me to get all events</button>
-        </div>
-        <ul>
-          {eventRows}
-        </ul>
+        <form name="event" onSubmit={this.handleCreateEvent}>
+          <input type="text" name="name" />
+          <input type="date" name="date" />
+          <input type="submit" />
+        </form>
+        <button onClick={this.handleEvents}>Click me to get all events</button>
+        <table>
+          <tbody>
+            {eventRows}
+          </tbody>
+        </table>
       </div>
     );
   }

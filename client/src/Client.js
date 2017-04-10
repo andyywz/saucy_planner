@@ -1,21 +1,23 @@
-function getAllEvents () {
-  return fetch('/api/events', {
+function getAllEvents (cb) {
+  return fetch('/events', {
     accept: 'application/json',
   }).then(checkStatus)
-    .then(parseJSON);
+    .then(parseJSON)
+    .then(cb);
 }
 
-// function createEvent (data) {
-//   return fetch('http://localhost:3001/events', {
-//     method: 'POST',
-//     accept: 'application/json',
-//     body: JSON.stringify(data),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   }).then(checkStatus)
-//     .then(parseJSON);
-// }
+function createEvent (params, cb) {
+  return fetch(`/users/${params.userId}/events`, {
+    method: 'POST',
+    accept: 'application/json',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
 
 function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
@@ -32,5 +34,5 @@ function parseJSON (response) {
   return response.json();
 }
 
-const Client = { getAllEvents };
+const Client = { getAllEvents, createEvent };
 export default Client;

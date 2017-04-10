@@ -9,6 +9,8 @@ class EventsController < ApplicationController
         Event.all
       end
 
+    puts @events
+
     json_response(@events)
   end
 
